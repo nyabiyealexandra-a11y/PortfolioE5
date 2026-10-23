@@ -36,7 +36,7 @@ E5.md                        E5 guide requirement → section → what is still 
 `portfolio.check` means the `check` tool of the `portfolio` MCP server (`mcp__portfolio__check` in Claude Code).
 
 - **Find before you read.** `portfolio.outline` maps sections, card `#id`s and todo counts; `portfolio.todos` lists missing information. Open a content file only once you know it is the right one.
-- **Read only what you need.** The DSL files are short (≤ 150 lines): grep for the function or type, then read that file, not the whole folder. Use `rg -n` to find where a symbol is used before renaming it.
+- **Read only what you need.** The DSL files are short (≤ 150 lines): grep for the function or type, then read that file, not the whole folder. Use `grep -rn` to find where a symbol is used before renaming it.
 - **Run checks through the MCP.** `portfolio.check`, `test`, `lint` and `build` return `✓` per step and only the errors. Do not run `npm run check` in the shell and read its full output.
 - **CONTRIBUTING.md is 30 kB.** Never read it whole: grep for the heading you need (`grep -n '^##' CONTRIBUTING.md`) and read that range. The skills below already sum up the parts agents need.
 - Never read `dist/`, `node_modules/` or `package-lock.json` (reads are denied in `.claude/settings.json` and `.cursorignore`).

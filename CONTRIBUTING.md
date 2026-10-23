@@ -250,18 +250,19 @@ Import everything from `src/dsl/index.ts`. Your editor shows the fields of each 
 
 ### Blocks
 
-| Function                                 | Result                                                                                                                                           |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `paragraph(text: RichText)`              | a paragraph                                                                                                                                      |
-| `list(items: RichText[])`                | a bulleted list                                                                                                                                  |
-| `timeline([{ period, title, detail? }])` | dated entries, one per line, with a rule between them                                                                                            |
-| `tags(labels: string[])`                 | small outlined labels (technologies, keywords)                                                                                                   |
-| `facts([{ term, value: RichText }])`     | label / value pairs (“Objectif — …”)                                                                                                             |
-| `note(text: RichText)`                   | a discreet remark with a rule on its left                                                                                                        |
-| `actions(links: Link[])`                 | links displayed as outlined buttons                                                                                                              |
-| `card({ id?, title, label?, blocks })`   | a framed box; `label` is the small uppercase line above the title                                                                                |
-| `grid(columns: 1 \| 2 \| 3, cards)`      | cards side by side, sharing their borders; collapses on small screens                                                                            |
-| `figure({ src, alt, caption? })`         | an image from `public/` (diagram, screenshot, organisation chart); `alt` describes it for screen readers; the build fails if the file is missing |
+| Function                                         | Result                                                                                                                                           |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `paragraph(text: RichText)`                      | a paragraph                                                                                                                                      |
+| `list(items: RichText[])`                        | a bulleted list                                                                                                                                  |
+| `timeline([{ period, title, detail? }])`         | dated entries, one per line, with a rule between them                                                                                            |
+| `tags(labels: string[])`                         | small outlined labels (technologies, keywords)                                                                                                   |
+| `facts([{ term, value: RichText }])`             | label / value pairs (“Objectif — …”)                                                                                                             |
+| `note(text: RichText)`                           | a discreet remark with a rule on its left                                                                                                        |
+| `actions(links: Link[])`                         | links displayed as outlined buttons                                                                                                              |
+| `card({ id?, title, label?, blocks, details? })` | a framed box; `label` is the small uppercase line above the title; `details` is folded under « Voir le détail »                                  |
+| `grid(columns: 1 \| 2 \| 3, cards)`              | cards side by side; collapses on small screens                                                                                                   |
+| `rows(cards)`                                    | cards as full-width rows separated by thin lines (the project list)                                                                              |
+| `figure({ src, alt, caption? })`                 | an image from `public/` (diagram, screenshot, organisation chart); `alt` describes it for screen readers; the build fails if the file is missing |
 
 ### Structure
 
@@ -341,9 +342,9 @@ The whole design is `src/styles/site.css`. It is inlined into the page at build 
 
 ### The principles
 
-- **Black and white only.** Ink (`--ink`) on paper (`--paper`), plus one grey (`--muted`) for secondary text and one light grey (`--hairline`) for minor rules.
-- **Like an architectural drawing**: a strict two-column grid (heading on the left, content on the right), 1px rules, cards that share their borders like the cells of a title block, small monospaced uppercase “annotations” (section numbers, labels, dates).
-- **System fonts** (Helvetica / Arial and the system monospace): nothing to download, fast everywhere.
+- **Quiet editorial.** Near-black ink (`--ink`) on warm paper (`--paper`), a grey (`--muted`) for secondary text, light rules (`--rule`, `--hairline`) and one muted accent (`--accent`, burgundy) kept for small marks: section numbers, labels, hover, focus.
+- **Calm structure**: a two-column grid (heading on the left, content on the right), thin rules rather than heavy boxes, soft cards, small uppercase sans-serif labels. Long, secondary content is folded under « Voir le détail » (only where the jury does not need it at first glance).
+- **System fonts**: a classic serif for titles (Iowan Old Style / Palatino / Georgia) and the system sans-serif for reading. Nothing to download, fast everywhere.
 - **No JavaScript.** If an idea needs JavaScript, it probably does not belong on this site.
 
 ### Where to change what

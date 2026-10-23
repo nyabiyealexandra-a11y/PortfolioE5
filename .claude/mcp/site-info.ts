@@ -23,8 +23,9 @@ const textsOf = (block: Block): readonly RichText[] => {
     case "facts":
       return block.items.map((item) => item.value);
     case "card":
-      return block.blocks.flatMap(textsOf);
+      return [...block.blocks, ...(block.details ?? [])].flatMap(textsOf);
     case "grid":
+    case "rows":
       return block.cards.flatMap(textsOf);
     case "timeline":
     case "tags":
@@ -44,8 +45,8 @@ const parts = (section: Section): readonly { card?: string; texts: readonly Rich
   const own: RichText[] = [section.lead ?? ""];
   const cards: { card: string; texts: readonly RichText[] }[] = [];
   const visit = (block: Block): void => {
-    if (block.kind === "card") cards.push({ card: block.id ?? block.title, texts: block.blocks.flatMap(textsOf) });
-    else if (block.kind === "grid") block.cards.forEach(visit);
+    if (block.kind === "card") cards.push({ card: block.id ?? block.title, texts: textsOf(block) });
+    else if (block.kind === "grid" || block.kind === "rows") block.cards.forEach(visit);
     else own.push(...textsOf(block));
   };
   section.blocks.forEach(visit);

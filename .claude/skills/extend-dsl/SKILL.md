@@ -5,7 +5,7 @@ description: Add or change a block, inline, option or validation rule in the Typ
 
 # Extending the DSL
 
-First check that the existing blocks really can't do it (`grid` of `card`s, `facts`, `note`… cover most needs) and that it fits the design: static HTML, no client JS, black and white.
+First check that the existing blocks really can't do it (`grid` of `card`s, `facts`, `note`… cover most needs) and that it fits the design: static HTML, no client JS, the quiet editorial look.
 
 Read only what you need: the `Block` union in `src/dsl/types.ts`, then the `renderBlock` and `linksInBlock` switches (`grep -n` them, read that range).
 
@@ -26,7 +26,7 @@ Example: a `quote` block.
 3. **Builder** in `src/dsl/builders.ts` (import the type): `export const quote = (text: string, author: string): Quote => ({ kind: "quote", text, author });`
 4. **Render** in the `renderBlock` switch of `src/dsl/render.ts`. Every piece of text goes through `escapeHtml`, or `renderText` for `RichText`.
 5. **Validate** in the `linksInBlock` switch of `src/dsl/validate.ts`. No links: return `[]` next to `timeline` and `tags`. With links or files, return them so the build checks them, and test that rule.
-6. **Style**: a `.quote` rule in `src/styles/site.css`, in the existing visual language (borders, monospace labels, no colour). Check phone width too.
+6. **Style**: a `.quote` rule in `src/styles/site.css`, in the existing visual language (hairline rules, serif titles, small uppercase sans labels, the accent only for small marks). Check phone width too.
 7. **Document**: a row in the DSL reference of CONTRIBUTING.md (`grep -n '^### Blocks' CONTRIBUTING.md`) and in the cheat sheet of `.claude/skills/edit-content/SKILL.md`.
 
 Also update `.claude/mcp/site-info.ts` if the new block holds `RichText`, so `todos` and `outline` still see inside it (its `switch` is exhaustive, so `tsc` will tell you).

@@ -1,7 +1,7 @@
 # Portfolio E5 — Alexandra Nyabiye
 
 Portfolio of Alexandra Nyabiye, BTS SIO option SISR student (épreuve E5).
-A one-page static site, black and white and inspired by architectural drawings, deployed to GitHub Pages.
+A one-page static site, with a quiet editorial design (warm paper, serif titles, thin rules), deployed to GitHub Pages.
 
 ## In one minute
 

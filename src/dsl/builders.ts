@@ -29,6 +29,7 @@ import type {
   Page,
   Paragraph,
   RichText,
+  Rows,
   Section,
   Strong,
   Tags,
@@ -69,12 +70,17 @@ export const note = (text: RichText): Note => ({ kind: "note", text });
 
 export const actions = (links: readonly Link[]): Actions => ({ kind: "actions", links });
 
-export const card = (props: { id?: string; title: string; label?: string; blocks: readonly Block[] }): Card => ({
-  kind: "card",
-  ...props,
-});
+export const card = (props: {
+  id?: string;
+  title: string;
+  label?: string;
+  blocks: readonly Block[];
+  details?: readonly Block[];
+}): Card => ({ kind: "card", ...props });
 
 export const grid = (columns: GridColumns, cards: readonly Card[]): Grid => ({ kind: "grid", columns, cards });
+
+export const rows = (cards: readonly Card[]): Rows => ({ kind: "rows", cards });
 
 export const figure = (props: { src: string; alt: string; caption?: string }): Figure => ({ kind: "figure", ...props });
 

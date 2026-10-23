@@ -11,6 +11,7 @@ import {
   list,
   note,
   paragraph,
+  rows,
   strong,
   tags,
   timeline,
@@ -103,6 +104,23 @@ describe("renderBlock", () => {
       renderBlock(card({ id: "projet-ad", title: "T", blocks: [] })),
       /^<article class="card" id="projet-ad">/,
     );
+  });
+
+  it("renders the details of a card in a closed disclosure, after its blocks", () => {
+    assert.equal(
+      renderBlock(card({ title: "T", blocks: [paragraph("résumé")], details: [paragraph("détail")] })),
+      `<article class="card"><h3 class="card__title">T</h3><p>résumé</p><details class="card__details"><summary>Voir le détail</summary><div class="card__more"><p>détail</p></div></details></article>`,
+    );
+  });
+
+  it("renders no disclosure for a card without details", () => {
+    assert.doesNotMatch(renderBlock(card({ title: "T", blocks: [], details: [] })), /<details/);
+  });
+
+  it("renders the cards of a rows block", () => {
+    const html = renderBlock(rows([card({ title: "A", blocks: [] }), card({ title: "B", blocks: [] })]));
+    assert.ok(html.startsWith(`<div class="rows">`));
+    assert.equal((html.match(/<article/g) ?? []).length, 2);
   });
 
   it("renders a figure, with an optional caption", () => {

@@ -23,8 +23,8 @@ export type ValidateOptions = {
 /** Every block of the page, including the ones nested in cards and grids. */
 export const collectBlocks = (page: Page): Block[] => {
   const walk = (block: Block): Block[] => {
-    if (block.kind === "card") return [block, ...block.blocks.flatMap(walk)];
-    if (block.kind === "grid") return [block, ...block.cards.flatMap(walk)];
+    if (block.kind === "card") return [block, ...block.blocks.flatMap(walk), ...(block.details ?? []).flatMap(walk)];
+    if (block.kind === "grid" || block.kind === "rows") return [block, ...block.cards.flatMap(walk)];
     return [block];
   };
   return page.sections.flatMap((section) => section.blocks.flatMap(walk));
@@ -49,6 +49,7 @@ const linksInBlock = (block: Block): Link[] => {
       return [...block.links];
     case "card":
     case "grid":
+    case "rows":
     case "timeline":
     case "tags":
     case "figure":

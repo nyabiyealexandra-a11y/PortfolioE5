@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { card, grid, link, paragraph, section } from "../src/dsl/index.ts";
+import { card, grid, link, paragraph, rows, section } from "../src/dsl/index.ts";
 
 describe("link", () => {
   it("is external by default for http(s) URLs", () => {
@@ -33,5 +33,11 @@ describe("structure builders", () => {
       columns: 2,
       cards: [{ kind: "card", title: "A", blocks: [{ kind: "paragraph", text: "texte" }] }],
     });
+  });
+
+  it("keep the details of a card and the cards of rows", () => {
+    const c = card({ title: "A", blocks: [], details: [paragraph("détail")] });
+    assert.deepEqual(c.details, [{ kind: "paragraph", text: "détail" }]);
+    assert.deepEqual(rows([c]), { kind: "rows", cards: [c] });
   });
 });

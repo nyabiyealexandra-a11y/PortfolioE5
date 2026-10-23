@@ -43,7 +43,11 @@ export const renderText = (text: RichText): string =>
 const renderCard = (card: Card): string => {
   const label = card.label === undefined ? "" : `<p class="card__label">${escapeHtml(card.label)}</p>`;
   const id = card.id === undefined ? "" : ` id="${escapeHtml(card.id)}"`;
-  return `<article class="card"${id}>${label}<h3 class="card__title">${escapeHtml(card.title)}</h3>${card.blocks.map(renderBlock).join("")}</article>`;
+  const details =
+    card.details === undefined || card.details.length === 0
+      ? ""
+      : `<details class="card__details"><summary>Voir le détail</summary><div class="card__more">${card.details.map(renderBlock).join("")}</div></details>`;
+  return `<article class="card"${id}>${label}<h3 class="card__title">${escapeHtml(card.title)}</h3>${card.blocks.map(renderBlock).join("")}${details}</article>`;
 };
 
 export const renderBlock = (block: Block): string => {
@@ -75,6 +79,8 @@ export const renderBlock = (block: Block): string => {
       return renderCard(block);
     case "grid":
       return `<div class="grid grid--${block.columns}">${block.cards.map(renderCard).join("")}</div>`;
+    case "rows":
+      return `<div class="rows">${block.cards.map(renderCard).join("")}</div>`;
     case "figure":
       return `<figure class="figure"><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}" loading="lazy">${
         block.caption === undefined ? "" : `<figcaption>${escapeHtml(block.caption)}</figcaption>`

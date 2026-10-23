@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "portfolio": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/.claude/node.sh",
+      "args": ["${workspaceFolder}/.claude/mcp/server.ts"]
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena@v2.1.0",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide",
+        "--project",
+        "${workspaceFolder}",
+        "--open-web-dashboard",
+        "false"
+      ]
+    }
+  }
+}

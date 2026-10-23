@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [{ "command": ".claude/node.sh --cursor-env" }],
+    "preToolUse": [{ "matcher": "Write", "command": ".claude/node.sh .claude/hooks/guard.ts" }],
+    "afterFileEdit": [{ "command": ".claude/node.sh .claude/hooks/after-edit.ts", "timeout": 60 }],
+    "postToolUse": [{ "matcher": "Write", "command": ".claude/node.sh .claude/hooks/after-edit.ts", "timeout": 60 }],
+    "stop": [{ "command": ".claude/node.sh .claude/hooks/before-stop.ts", "timeout": 300, "loop_limit": 3 }]
+  }
+}

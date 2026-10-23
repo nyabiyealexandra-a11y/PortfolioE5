@@ -1,0 +1,5 @@
+# Files the Cursor agent never needs to read (same as the denied reads in .claude/settings.json).
+dist/
+node_modules/
+package-lock.json
+.serena/cache/

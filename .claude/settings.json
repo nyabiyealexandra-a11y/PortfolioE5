@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "enabledMcpjsonServers": ["portfolio", "serena"],
+  "enabledMcpjsonServers": ["portfolio"],
   "permissions": {
     "allow": [
       "mcp__portfolio",
@@ -17,7 +17,7 @@
       "Bash(git diff *)",
       "Bash(git log *)"
     ],
-    "deny": ["Read(./dist/**)", "Read(./node_modules/**)", "Read(./package-lock.json)", "Read(./.serena/cache/**)"]
+    "deny": ["Read(./dist/**)", "Read(./node_modules/**)", "Read(./package-lock.json)"]
   },
   "hooks": {
     "SessionStart": [

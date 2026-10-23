@@ -36,7 +36,7 @@ E5.md                        E5 guide requirement → section → what is still 
 `portfolio.check` means the `check` tool of the `portfolio` MCP server (`mcp__portfolio__check` in Claude Code).
 
 - **Find before you read.** `portfolio.outline` maps sections, card `#id`s and todo counts; `portfolio.todos` lists missing information. Open a content file only once you know it is the right one.
-- **Read symbols, not files.** For code in `src/dsl/` or `.claude/`, use Serena (the `serena` MCP server): symbol overview, then the single body you need, and references before a rename. Edit with the regular Edit/Write tools so the hooks run.
+- **Read only what you need.** The DSL files are short (≤ 150 lines): grep for the function or type, then read that file, not the whole folder. Use `rg -n` to find where a symbol is used before renaming it.
 - **Run checks through the MCP.** `portfolio.check`, `test`, `lint` and `build` return `✓` per step and only the errors. Do not run `npm run check` in the shell and read its full output.
 - **CONTRIBUTING.md is 30 kB.** Never read it whole: grep for the heading you need (`grep -n '^##' CONTRIBUTING.md`) and read that range. The skills below already sum up the parts agents need.
 - Never read `dist/`, `node_modules/` or `package-lock.json` (reads are denied in `.claude/settings.json` and `.cursorignore`).
@@ -83,7 +83,7 @@ Claude Code and Cursor share the same scripts, skills and instructions. Only the
 | `.claude/mcp/server.ts`                                   | `portfolio` MCP server (zero dependencies): `check`, `test`, `lint`, `build`, `outline`, `todos`                                           |
 | `.claude/node.sh`                                         | runs Node at the `.nvmrc` version; every hook and the MCP server start through it                                                          |
 | `.claude/skills/`                                         | read by both tools. On demand: `edit-content`, `extend-dsl`, `write-tests`. Explicit only: `/check`, `/e5-status`, `/new-block`, `/ship`   |
-| `.claude/settings.json`, `.mcp.json`                      | Claude Code: hooks, permissions, denied reads; MCP servers `portfolio` + `serena` (pinned to v2.1.0, needs `uv`)                           |
+| `.claude/settings.json`, `.mcp.json`                      | Claude Code: hooks, permissions, denied reads; MCP server `portfolio`                                                                      |
 | `.cursor/hooks.json`, `.cursor/mcp.json`, `.cursorignore` | Cursor: the same hooks, MCP servers and ignored files                                                                                      |
 
 In Cursor, leave the "third-party hooks" setting (loading Claude Code hooks) off: `.cursor/hooks.json` already runs them, and they would run twice.

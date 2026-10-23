@@ -7,7 +7,7 @@ description: Add or change a block, inline, option or validation rule in the Typ
 
 First check that the existing blocks really can't do it (`grid` of `card`s, `facts`, `note`… cover most needs) and that it fits the design: static HTML, no client JS, black and white.
 
-Read only what you need, through Serena: the `Block` union in `src/dsl/types.ts`, then the `renderBlock` and `linksInBlock` switch bodies.
+Read only what you need: the `Block` union in `src/dsl/types.ts`, then the `renderBlock` and `linksInBlock` switches (`grep -n` them, read that range).
 
 ## Steps (test first)
 

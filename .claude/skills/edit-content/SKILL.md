@@ -17,18 +17,19 @@ All text lives in `src/content/`. Never write HTML: build it with the DSL import
 
 `RichText` = a string, or an array of strings / `strong(t)` / `em(t)` / `link(label, href)` / `todo(what)`.
 
-| Builder                                           | Renders                                                     |
-| ------------------------------------------------- | ----------------------------------------------------------- |
-| `paragraph(RichText)` · `note(RichText)`          | a paragraph · a discreet remark                             |
-| `list(RichText[])`                                | bulleted list                                               |
-| `timeline([{ period, title, detail? }])`          | dated entries                                               |
-| `tags(string[])`                                  | small labels (technologies)                                 |
-| `facts([{ term, value: RichText }])`              | label / value pairs                                         |
-| `actions(Link[])`                                 | links as buttons                                            |
-| `card({ id?, title, label?, blocks })`            | framed box; `id` makes it linkable as `#id`                 |
-| `grid(1 \| 2 \| 3, cards)`                        | cards side by side                                          |
-| `figure({ src, alt, caption? })`                  | image from `public/`; `alt` is required, describe the image |
-| `section({ id, navLabel, title, lead?, blocks })` | a numbered section in the navigation                        |
+| Builder                                           | Renders                                                                                |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `paragraph(RichText)` · `note(RichText)`          | a paragraph · a discreet remark                                                        |
+| `list(RichText[])`                                | bulleted list                                                                          |
+| `timeline([{ period, title, detail? }])`          | dated entries                                                                          |
+| `tags(string[])`                                  | small labels (technologies)                                                            |
+| `facts([{ term, value: RichText }])`              | label / value pairs                                                                    |
+| `actions(Link[])`                                 | links as buttons                                                                       |
+| `card({ id?, title, label?, blocks, details? })`  | framed box; `id` makes it linkable as `#id`; `details` folded under « Voir le détail » |
+| `grid(1 \| 2 \| 3, cards)`                        | cards side by side                                                                     |
+| `rows(cards)`                                     | cards as full-width rows with thin lines                                               |
+| `figure({ src, alt, caption? })`                  | image from `public/`; `alt` is required, describe the image                            |
+| `section({ id, navLabel, title, lead?, blocks })` | a numbered section in the navigation                                                   |
 
 - `link` href: `#section-or-card-id`, `https://…`, `mailto:…`, or a path relative to `public/` (`"docs/projet-ad.pdf"`). Never start with `/`.
 - Projects (`projets.ts`) and skills (`competences.ts`) use a local helper (`project({...})`, `skill(...)`): copy an existing entry. `category` must be one of the values of the file's `Category` type.

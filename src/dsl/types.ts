@@ -64,6 +64,8 @@ export type Card = {
   /** Small uppercase label above the title (category, date…). */
   readonly label?: string;
   readonly blocks: readonly Block[];
+  /** Secondary content, folded under "Voir le détail" (a native `<details>`, no JS). */
+  readonly details?: readonly Block[];
 };
 
 export type GridColumns = 1 | 2 | 3;
@@ -72,6 +74,9 @@ export type Grid = {
   readonly columns: GridColumns;
   readonly cards: readonly Card[];
 };
+
+/** Cards as an editorial list: full-width rows separated by hairlines. */
+export type Rows = { readonly kind: "rows"; readonly cards: readonly Card[] };
 
 export type Figure = {
   readonly kind: "figure";
@@ -82,7 +87,7 @@ export type Figure = {
   readonly caption?: string;
 };
 
-export type Block = Paragraph | List | Timeline | Tags | Facts | Note | Actions | Card | Grid | Figure;
+export type Block = Paragraph | List | Timeline | Tags | Facts | Note | Actions | Card | Grid | Rows | Figure;
 
 // ---------------------------------------------------------------------------
 // Page structure.

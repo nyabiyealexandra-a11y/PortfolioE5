@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { actions, card, figure, grid, hero, link, paragraph } from "../src/dsl/index.ts";
+import { actions, card, figure, grid, hero, link, paragraph, rows } from "../src/dsl/index.ts";
 import { collectLinks, validatePage } from "../src/dsl/validate.ts";
 import { makePage, makeSection } from "./helpers.ts";
 
@@ -95,6 +95,32 @@ describe("validatePage — cards and images", () => {
     const errors = validatePage(page).join();
     assert.match(errors, /Card id "demo" is used more than once/);
     assert.match(errors, /Card id "Bad id" is invalid/);
+  });
+
+  it("checks links, ids and images in card details and rows", () => {
+    const fileExists = (path: string) => path === "docs/ok.pdf";
+    const page = (href: string, src: string) =>
+      makePage({
+        sections: [
+          makeSection({
+            blocks: [
+              paragraph([link("vers AD", "#projet-ad")]),
+              rows([
+                card({
+                  id: "projet-ad",
+                  title: "AD",
+                  blocks: [],
+                  details: [actions([link("Doc", href)]), figure({ src, alt: "Schéma" })],
+                }),
+              ]),
+            ],
+          }),
+        ],
+      });
+    assert.deepEqual(validatePage(page("docs/ok.pdf", "docs/ok.pdf"), { fileExists }), []);
+    const errors = validatePage(page("docs/absent.pdf", "images/absent.png"), { fileExists }).join();
+    assert.match(errors, /docs\/absent.pdf/);
+    assert.match(errors, /images\/absent.png/);
   });
 
   it("checks that images exist and have an alt text", () => {

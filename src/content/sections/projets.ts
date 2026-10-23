@@ -2,8 +2,8 @@ import {
   actions,
   card,
   facts,
-  grid,
   paragraph,
+  rows,
   section,
   tags,
   todo,
@@ -35,20 +35,22 @@ type Project = {
 const documentsBlock = (documents: readonly Link[]): Block =>
   documents.length > 0 ? actions(documents) : paragraph([todo("documentation : procédure, schéma ou captures (PDF)")]);
 
-/** A local helper built on top of the DSL: every project card has the same shape. */
+/**
+ * A local helper built on top of the DSL: every project row has the same shape.
+ * Visible: what the jury scans (context, tools). Folded: the detail of the work.
+ */
 const project = (p: Project): Card =>
   card({
     id: p.id,
     label: p.category,
     title: p.title,
-    blocks: [
-      paragraph(p.context),
+    blocks: [paragraph(p.context), tags(p.technologies)],
+    details: [
       facts([
         { term: "Objectif", value: p.goal },
         { term: "Mon rôle", value: p.role },
         { term: "Résultats", value: p.results },
       ]),
-      tags(p.technologies),
       documentsBlock(p.documents),
     ],
   });
@@ -58,7 +60,8 @@ const mainProject = card({
   id: "projet-2e-annee",
   label: "Projet de 2e année",
   title: "Contexte HSP / LPRS",
-  blocks: [
+  blocks: [paragraph([todo("le projet en une phrase")])],
+  details: [
     facts([
       { term: "Contexte", value: [todo("organisation fictive et situation de départ")] },
       { term: "Besoins", value: [todo("ce que le client attend")] },
@@ -78,8 +81,8 @@ export const projets = section({
   title: "Projets & documentations",
   lead: "Pour chaque projet : contexte, objectif, rôle, résultats et documents de la démarche.",
   blocks: [
-    mainProject,
-    grid(2, [
+    rows([
+      mainProject,
       project({
         id: "projet-ad",
         title: "Active Directory & GPO",
